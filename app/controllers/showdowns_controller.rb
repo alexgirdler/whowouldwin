@@ -1,5 +1,6 @@
 class ShowdownsController < ApplicationController
   before_action :set_showdown, only: [:show, :edit, :update, :destroy]
+  autocomplete :contestant, :name, :full => true
 
   # GET /showdowns
   # GET /showdowns.json
@@ -10,7 +11,6 @@ class ShowdownsController < ApplicationController
   # GET /showdowns/1
   # GET /showdowns/1.json
   def show
-    set_showdown
     @contestants = @showdown.contestants
     @votes = @showdown.votes.group_by(&:contestant)
     @total_votes = @showdown.votes.count

@@ -12,9 +12,9 @@
   <% end %>
 
   <h3>Contestant 1</h3>
-  <%= text_field :contestant, 1 %>
+  <%= autocomplete_field_tag 'contestant[1]', '', autocomplete_contestant_name_showdowns_path, 'data-contestant' => 1 %>
   <h3>Contestant 2</h3>
-  <%= text_field :contestant, 2 %>
+  <%= autocomplete_field_tag 'contestant[2]', '', autocomplete_contestant_name_showdowns_path, 'data-contestant' => 2 %>
 
   <div class="actions">
     <%= f.submit :contestant_1%>
