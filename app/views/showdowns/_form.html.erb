@@ -11,7 +11,12 @@
     </div>
   <% end %>
 
+  <h3>Contestant 1</h3>
+  <%= text_field :contestant, 1 %>
+  <h3>Contestant 2</h3>
+  <%= text_field :contestant, 2 %>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :contestant_1%>
   </div>
 <% end %>

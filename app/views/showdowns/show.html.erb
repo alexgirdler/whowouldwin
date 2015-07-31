@@ -1,4 +1,24 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_showdown_path(@showdown) %> |
-<%= link_to 'Back', showdowns_path %>
+<div>
+  <h2>Showdown <%= @showdown.id %></h2>
+</div>
+
+<div>
+  <h2>Contestants</h2>
+  <% @contestants.each do |contestant|%>
+      <%= contestant.name %>
+  <% end %>
+  <%# <%= form_tag "/showdowns/#{@showdown.id}/vote", method: :put do %1> %>
+  <%#   <% @contestants.each do |contestant|%>
+  <%#     <%= submit_tag contestant.name, 'data-contestant' => contestant.id %1> %>
+  <%#   <% end %1> %>
+  <%# <% end %1> %>
+</div>
+
+<div>
+  <h2>Votes</h2>
+  <% @votes.each do |contestant, votes| %>
+    <h4><%= contestant.name %> - <%= 100 * votes.count.to_f / @total_votes %>%</h4>
+  <% end %>
+</div>

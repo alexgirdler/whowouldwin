@@ -10,6 +10,10 @@ class ShowdownsController < ApplicationController
   # GET /showdowns/1
   # GET /showdowns/1.json
   def show
+    set_showdown
+    @contestants = @showdown.contestants
+    @votes = @showdown.votes.group_by(&:contestant)
+    @total_votes = @showdown.votes.count
   end
 
   # GET /showdowns/new
@@ -25,6 +29,11 @@ class ShowdownsController < ApplicationController
   # POST /showdowns.json
   def create
     @showdown = Showdown.new(showdown_params)
+    if params.has_key?(:contestant)
+      contestants = params[:contestant].map {|c| Contestant.where(:name => c).first}
+      @showdown.contestants = contestants
+    end
+    puts @showdown.to_yaml
 
     respond_to do |format|
       if @showdown.save
