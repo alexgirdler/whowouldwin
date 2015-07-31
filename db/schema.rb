@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150731190924) do
+ActiveRecord::Schema.define(version: 20150731213634) do
+
+  create_table "attachinary_files", force: :cascade do |t|
+    t.integer  "attachinariable_id"
+    t.string   "attachinariable_type"
+    t.string   "scope"
+    t.string   "public_id"
+    t.string   "version"
+    t.integer  "width"
+    t.integer  "height"
+    t.string   "format"
+    t.string   "resource_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "attachinary_files", ["attachinariable_type", "attachinariable_id", "scope"], name: "by_scoped_parent"
 
   create_table "contestant_stats", force: :cascade do |t|
     t.string   "value"
@@ -26,12 +42,8 @@ ActiveRecord::Schema.define(version: 20150731190924) do
 
   create_table "contestants", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.string   "portrait_file_name"
-    t.string   "portrait_content_type"
-    t.integer  "portrait_file_size"
-    t.datetime "portrait_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "contestants_showdowns", id: false, force: :cascade do |t|

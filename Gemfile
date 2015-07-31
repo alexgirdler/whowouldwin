@@ -44,6 +44,6 @@ group :development, :test do
   gem 'spring'
 end
 
-gem 'paperclip', '~> 4.3'
-gem 'aws', '~> 1.6'
+gem 'attachinary'
+gem 'cloudinary'
 gem 'rails4-autocomplete'

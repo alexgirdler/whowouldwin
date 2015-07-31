@@ -8,12 +8,24 @@
   <h2>Contestants</h2>
   <% @contestants.each do |contestant|%>
       <%= contestant.name %>
+      <% if contestant.portrait? %>
+          <%= cl_image_tag(contestant.portrait.path, { size: '50x50', crop: :thumb, gravity: :face }) %>
+      <% end %> 
   <% end %>
   <%# <%= form_tag "/showdowns/#{@showdown.id}/vote", method: :put do %1> %>
   <%#   <% @contestants.each do |contestant|%>
   <%#     <%= submit_tag contestant.name, 'data-contestant' => contestant.id %1> %>
   <%#   <% end %1> %>
   <%# <% end %1> %>
+</div>
+
+<div>
+  <h2>Stats</h2>
+  <% @stats.each do |stat| %>
+    <%= stat[@contestants.first].value %>
+    <%= stat[:description].description %>
+    <%= stat[@contestants.last].value %>
+  <% end %>
 </div>
 
 <div>

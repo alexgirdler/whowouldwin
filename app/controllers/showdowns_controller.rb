@@ -1,11 +1,11 @@
 class ShowdownsController < ApplicationController
-  before_action :set_showdown, only: [:show, :edit, :update, :destroy]
+  before_action :set_showdown, only: [:show, :edit, :update, :destroy, :vote]
   autocomplete :contestant, :name, :full => true
 
   # GET /showdowns
   # GET /showdowns.json
   def index
-    @showdowns = Showdown.all
+    redirect_to Showdown.all.sample
   end
 
   # GET /showdowns/1
@@ -14,6 +14,27 @@ class ShowdownsController < ApplicationController
     @contestants = @showdown.contestants
     @votes = @showdown.votes.group_by(&:contestant)
     @total_votes = @showdown.votes.count
+    @stats = @showdown.stats
+    @stats = @stats.map { |stat|
+      { 
+        @contestants.first => @contestants.first.stat_for(stat),
+        :description => stat,
+        @contestants.last => @contestants.last.stat_for(stat)
+      }
+    }
+  end
+
+  # POST /showdowns/1/vote
+  def vote
+    contestant = Contestant.find(params[:contestant_id])
+
+    if Vote.where(showdown: @showdown, user: params[:username]).count > 0
+      Vote.where(showdown: @showdown, user: params[:username]).first.update(contestant: contestant)
+    else
+      Vote.create(showdown: @showdown, contestant: contestant, user: params[:username])
+    end
+
+    return (@showdown.votes.group_by(&:contestant)).to_json
   end
 
   # GET /showdowns/new
@@ -30,10 +51,27 @@ class ShowdownsController < ApplicationController
   def create
     @showdown = Showdown.new(showdown_params)
     if params.has_key?(:contestant)
-      contestants = params[:contestant].map {|c| Contestant.where(:name => c).first}
+      contestants = []
+      params[:contestant].each_with_index do |contestant, index|
+        if Contestant.where(name: contestant).count > 0
+          contestants << Contestant.where(name: contestant).first
+        else
+          contestant = Contestant.create(name: contestant)
+          contestant.portrait_url = JSON.parse(params["portrait#{index + 1}"])[0]['url']
+          if contestant.save
+            contestants << contestant
+          end
+        end
+      end
+      if params.has_key?(:stats)
+        params[:stats].each do |index, stat_row|
+          stat = Stat.create(showdown: @showdown, description: stat_row[:description])
+          ContestantStat.create(stat: stat, value: stat_row[:contestant1], contestant: contestants.first)
+          ContestantStat.create(stat: stat, value: stat_row[:contestant2], contestant: contestants.last)
+        end
+      end
       @showdown.contestants = contestants
     end
-    puts @showdown.to_yaml
 
     respond_to do |format|
       if @showdown.save

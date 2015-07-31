@@ -1,3 +1,16 @@
+<script type="text/javascript" charset="utf-8">
+$(function() {
+  var container = $('.stats-container');
+  var i = $('.stats-container > .stats-row').size();
+  $('#add-stat').on('click', function() {
+    $('<div class="stats-row"><input type="text" name="stats[' + i + '][contestant1]" id="stats_' + i + '_contestant1"/><input type="text" name="stats[' + i+ '][description]" id="stats_' + i + '_description"/><input type="text" name="stats[' + i + '][contestant2]" id="stats_' + i + '_contestant2"/></div>').appendTo(container);
+      i++;
+      return false;
+  });
+});
+</script>
+
+
 <%= form_for(@showdown) do |f| %>
   <% if @showdown.errors.any? %>
     <div id="error_explanation">
@@ -12,11 +25,22 @@
   <% end %>
 
   <h3>Contestant 1</h3>
-  <%= autocomplete_field_tag 'contestant[1]', '', autocomplete_contestant_name_showdowns_path, 'data-contestant' => 1 %>
+  <%= autocomplete_field_tag 'contestant[]', '', autocomplete_contestant_name_showdowns_path, 'data-contestant' => 1 %>
+  <%= attachinary_file_field_tag :portrait1, Contestant.new, :portrait %>
   <h3>Contestant 2</h3>
-  <%= autocomplete_field_tag 'contestant[2]', '', autocomplete_contestant_name_showdowns_path, 'data-contestant' => 2 %>
+  <%= autocomplete_field_tag 'contestant[]', '', autocomplete_contestant_name_showdowns_path, 'data-contestant' => 2 %>
+  <%= attachinary_file_field_tag :portrait2, Contestant.new, :portrait %>
+
+  <div class="stats-container">
+    <div class="stats-row">
+      <%= text_field_tag 'stats[0][contestant1]' %>
+      <%= text_field_tag 'stats[0][description]' %>
+      <%= text_field_tag 'stats[0][contestant2]' %>
+    </div>
+  </div>
+  <a href="#" id="add-stat">Add stat</a>
 
   <div class="actions">
-    <%= f.submit :contestant_1%>
+    <%= f.submit %>
   </div>
 <% end %>

@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   resources :showdowns do
-    get :autocomplete_contestant_name, :on => :collection
+    member do
+      post 'vote'
+    end
+    collection do
+      get :autocomplete_contestant_name
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -57,4 +62,5 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  mount Attachinary::Engine => '/attachinary'
 end
