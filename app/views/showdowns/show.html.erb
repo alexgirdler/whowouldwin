@@ -1,5 +1,47 @@
 <p id="notice"><%= notice %></p>
 
+<div class="pickone">
+  <div class="vs">vs.</div>
+  <div class="pickone-option">
+    <img src="http://i.imgur.com/fBFXH6k.png" />
+    <caption>Jean Claude Van Damme</caption>
+  </div>
+  <div class="pickone-option">
+    <img src="http://i.imgur.com/OzHpCbw.png" />
+    <caption>Arnold Schwarzenegger</caption>
+  </div>
+</div>
+
+
+<div class="quickstats">
+  <table>
+    <tr>
+      <td>0</td>
+      <td># of Mr. Universe Titles</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Yes</td>
+      <td>Can do the splits, no problem</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>43</td>
+      <td>Number of movies starred in</td>
+      <td>42</td>
+    </tr>
+  </table>
+</div>
+
+
+<div class="vote">
+  <h2>vote</h2>
+  <button class="left-option">Jean Claude Van Damme</button>
+  <button class="right-option">Arnold Schwarzenegger</button>
+</div>
+
+
+
 <div>
   <h2>Showdown <%= @showdown.id %></h2>
 </div>
@@ -9,14 +51,9 @@
   <% @contestants.each do |contestant|%>
       <%= contestant.name %>
       <% if contestant.portrait? %>
-          <%= cl_image_tag(contestant.portrait.path, { size: '50x50', crop: :thumb, gravity: :face }) %>
+          <%= cl_image_tag(contestant.portrait.path, {}) %>
       <% end %> 
   <% end %>
-  <%# <%= form_tag "/showdowns/#{@showdown.id}/vote", method: :put do %1> %>
-  <%#   <% @contestants.each do |contestant|%>
-  <%#     <%= submit_tag contestant.name, 'data-contestant' => contestant.id %1> %>
-  <%#   <% end %1> %>
-  <%# <% end %1> %>
 </div>
 
 <div>

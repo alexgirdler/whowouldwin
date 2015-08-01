@@ -1,0 +1,36 @@
+// _vars.scss
+
+$color_white: #fbfbfb;
+$color_bg: #e8e8e8;
+$color_red: rgba(255, 0, 0, .45);
+$color_blue: rgba(0, 130, 255, .45);
+
+
+@mixin font-arial {
+	font-family: 'Arial', 'Helvetica', 'sans-serif';
+
+}
+
+@mixin rounded($radius) {
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+  background-clip: padding-box;  /* stops bg color from leaking outside the border: */
+}
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow:inset $top $left $blur $color;
+    box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+
+@mixin nofancy {
+	-webkit-appearance: none;
+	-moz-appearance:    none;
+	appearance:         none;
+}

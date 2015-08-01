@@ -1,0 +1,69 @@
+// small.scss
+
+@import 'vars';
+
+$general_padding: 4%;
+
+header {
+	padding: 1.5rem 1rem;
+	h1 {
+		font-size: 3rem;
+	}
+}
+
+.pickone {
+	width: 100%;
+	padding: $general_padding;
+	.pickone-option {
+		width: 43%;
+		margin-right: 13%;
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+	.vs {
+		top: 50%;
+		left: 50%;
+		width: 3rem;
+		font-size: 1rem;
+		margin-left: -1.5rem;
+	}
+}
+
+.quickstats {
+	width: 100%;
+	padding: $general_padding;
+	table {
+		width: 100%;
+		td {
+			height: 3rem;
+			&:first-child, &:last-child {
+				width: 5rem;
+			}
+		}
+	}
+}
+
+.vote {
+	padding: $general_padding;
+	h2 {
+		font-size: 2rem;
+		padding: 2rem 0;
+	}
+	text-align: center;
+	button {
+		min-height: 3rem;
+		width: 48%;
+		margin-right: 3%;
+		background-color: transparent;
+		&.left-option {
+			border: solid 1px $color_red;
+			color: $color_red;
+		}
+		&.right-option {
+			margin-right: 0;
+			border: solid 1px $color_blue;
+			color: $color_blue;
+		}
+	}
+}

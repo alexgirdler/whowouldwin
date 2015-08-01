@@ -10,6 +10,10 @@ $(function() {
 });
 </script>
 
+<% @title = 'SHOWDOWN' %>
+
+test
+
 
 <%= form_for(@showdown) do |f| %>
   <% if @showdown.errors.any? %>
@@ -23,6 +27,11 @@ $(function() {
       </ul>
     </div>
   <% end %>
+
+
+
+
+
 
   <h3>Contestant 1</h3>
   <%= autocomplete_field_tag 'contestant[]', '', autocomplete_contestant_name_showdowns_path, 'data-contestant' => 1 %>
